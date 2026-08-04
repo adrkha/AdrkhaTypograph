@@ -23,8 +23,11 @@ jobs:
     - name: Restore NuGet Packages
       run: nuget restore AdrkhaTypograph.csproj -PackagesDirectory packages
 
+    - name: Import Certificate for Signing Manifests
+      run: powershell -Command "Import-PfxCertificate -FilePath 'AdrkhaTypograph_TemporaryKey.pfx' -CertStoreLocation Cert:\CurrentUser\My"
+
     - name: Build Project (Release)
-      run: msbuild AdrkhaTypograph.csproj /p:Configuration=Release /t:Rebuild /p:SignManifests=false
+      run: msbuild AdrkhaTypograph.csproj /p:Configuration=Release /t:Rebuild
 
     - name: Install Inno Setup
       run: choco install innosetup -y
