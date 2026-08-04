@@ -36,6 +36,10 @@ jobs:
         name: msbuild-log
         path: msbuild.log
 
+    - name: Print MSBuild Log on Failure
+      if: failure()
+      run: powershell -Command "Get-Content msbuild.log -Tail 100"
+
     - name: Install Inno Setup
       run: choco install innosetup -y
 
