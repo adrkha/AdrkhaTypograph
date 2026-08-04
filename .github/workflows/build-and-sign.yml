@@ -1,0 +1,52 @@
+﻿name: Build and Sign Installer
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+
+    - name: Restore NuGet Packages
+      run: nuget restore AdrkhaTypograph.csproj -PackagesDirectory packages
+
+    - name: Build Project (Release)
+      run: msbuild AdrkhaTypograph.csproj /p:Configuration=Release /t:Rebuild
+
+    - name: Install Inno Setup
+      run: choco install innosetup -y
+
+    - name: Compile Inno Setup Installer
+      run: & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" AdrkhaTypograph.iss
+
+    # --- الخطوة الاختيارية: حفظ الملف غير الموقع كـ artifact احتياطي ---
+    - name: Upload Unsigned Installer
+      uses: actions/upload-artifact@v4
+      with:
+        name: unsigned-installer
+        path: Installer/AdrkhaTypograph_v1.0.0_Setup.exe
+
+    # --- خطوة التكامل مع SignPath لتوقيع الملف تلقائياً ---
+    # ملاحظة: سيتم تفعيل هذه الخطوة بعد الاشتراك في SignPath وربط الإعدادات
+    # - name: Submit to SignPath for Signing
+    #   uses: signpath/github-action-submit-signing-request@v1
+    #   with:
+    #     api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+    #     organization-id: ${{ secrets.SIGNPATH_ORGANIZATION_ID }}
+    #     project-slug: 'AdrkhaTypograph'
+    #     signing-policy-slug: 'release-signing'
+    #     github-artifact-name: 'unsigned-installer'
+    #     output-artifact-directory: 'SignedInstaller'

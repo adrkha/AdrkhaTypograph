@@ -1,0 +1,12 @@
+﻿## Ignore Visual Studio Temporary Files and Build Results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+arm64/
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+packages/
+Installer/
