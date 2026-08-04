@@ -1,4 +1,4 @@
-﻿name: Build and Sign Installer
+name: Build and Sign Installer
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
       run: choco install innosetup -y
 
     - name: Compile Inno Setup Installer
-      run: & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" AdrkhaTypograph.iss
+      run: iscc AdrkhaTypograph.iss
 
     # --- الخطوة الاختيارية: حفظ الملف غير الموقع كـ artifact احتياطي ---
     - name: Upload Unsigned Installer
