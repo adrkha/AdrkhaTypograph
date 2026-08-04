@@ -328,9 +328,13 @@
 
   <!--
     On CI (GitHub Actions sets CI=true), the VSTO Runtime is not available.
-    We override the VisualStudioForApplicationsBuild target to be a no-op so the
-    DLL compiles successfully. The .vsto manifest is not needed for the Inno Setup installer.
+    We override these targets to be no-ops so the DLL compiles successfully.
+    The .vsto manifest is not needed for the Inno Setup installer.
   -->
   <Target Name="VisualStudioForApplicationsBuild" Condition="'$(CI)' == 'true'" />
+  <Target Name="RemoveOfficeAddInSecurity" Condition="'$(CI)' == 'true'" />
+  <Target Name="SetInclusionListEntry" Condition="'$(CI)' == 'true'" />
+  <Target Name="RegisterOfficeAddin" Condition="'$(CI)' == 'true'" />
+  <Target Name="UnregisterOfficeAddin" Condition="'$(CI)' == 'true'" />
 
-</Project>
+</Project>
