@@ -24,7 +24,7 @@ jobs:
       run: nuget restore AdrkhaTypograph.csproj -PackagesDirectory packages
 
     - name: Build Project (Release)
-      run: msbuild AdrkhaTypograph.csproj /p:Configuration=Release /t:Rebuild
+      run: msbuild AdrkhaTypograph.csproj /p:Configuration=Release /t:Rebuild /p:SignManifests=false
 
     - name: Install Inno Setup
       run: choco install innosetup -y
