@@ -27,7 +27,14 @@ jobs:
       run: powershell -Command "Import-PfxCertificate -FilePath 'AdrkhaTypograph_TemporaryKey.pfx' -CertStoreLocation Cert:\CurrentUser\My"
 
     - name: Build Project (Release)
-      run: msbuild AdrkhaTypograph.csproj /p:Configuration=Release /t:Rebuild
+      run: msbuild AdrkhaTypograph.csproj /p:Configuration=Release /t:Rebuild /fl
+
+    - name: Upload MSBuild Log
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: msbuild-log
+        path: msbuild.log
 
     - name: Install Inno Setup
       run: choco install innosetup -y
