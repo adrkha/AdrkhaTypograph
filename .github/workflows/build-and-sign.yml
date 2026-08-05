@@ -27,27 +27,8 @@ jobs:
       run: Import-PfxCertificate -FilePath 'AdrkhaTypograph_TemporaryKey.pfx' -CertStoreLocation Cert:\CurrentUser\My
       shell: powershell
 
-    - name: Diagnostics - Check VSTO targets and CI env
-      shell: powershell
-      run: |
-        Write-Output "CI env var: $env:CI"
-        $vsToolsPath = & vswhere -latest -property installationPath 2>$null
-        Write-Output "VS Install Path: $vsToolsPath"
-        $targetPath = Join-Path $vsToolsPath "MSBuild\Microsoft\VisualStudio\v18.0\OfficeTools\Microsoft.VisualStudio.Tools.Office.targets"
-        Write-Output "VSTO targets exists: $(Test-Path $targetPath)"
-        if (-not (Test-Path $targetPath)) {
-            # Try v17.0
-            $targetPath17 = Join-Path $vsToolsPath "MSBuild\Microsoft\VisualStudio\v17.0\OfficeTools\Microsoft.VisualStudio.Tools.Office.targets"
-            Write-Output "VSTO targets v17.0 exists: $(Test-Path $targetPath17)"
-        }
-        # List OfficeTools folder if it exists
-        $officeDir = Join-Path $vsToolsPath "MSBuild\Microsoft\VisualStudio"
-        if (Test-Path $officeDir) {
-            Get-ChildItem $officeDir -Recurse -Filter "*Office*" | Select-Object -First 20 | ForEach-Object { Write-Output $_.FullName }
-        }
-
     - name: Build Project (Release)
-      run: msbuild AdrkhaTypograph.csproj /p:Configuration=Release /p:CI=true /t:Rebuild /fl /flp:Verbosity=diagnostic
+      run: msbuild AdrkhaTypograph.csproj /p:Configuration=Release /p:CI=true /t:Rebuild /fl
 
     - name: Print MSBuild Log on Failure
       if: failure()
