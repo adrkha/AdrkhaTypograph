@@ -300,16 +300,23 @@
   </Target>
   <Import Project="packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets" Condition="Exists('packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets')" />
   <Import Project="packages\HarfBuzzSharp.NativeAssets.Win32.8.3.1.3\buildTransitive\net462\HarfBuzzSharp.NativeAssets.Win32.targets" Condition="Exists('packages\HarfBuzzSharp.NativeAssets.Win32.8.3.1.3\buildTransitive\net462\HarfBuzzSharp.NativeAssets.Win32.targets')" />
-
   <!--
-    On CI (GitHub Actions sets CI=true), the VSTO Runtime is not available.
-    We override these targets to be no-ops so the DLL compiles successfully.
-    The .vsto manifest is not needed for the Inno Setup installer.
+    On CI (GitHub Actions), the VSTO Runtime is not available, which causes the SetInclusionListEntry task to fail.
+    We override the task declaration with a dummy C# inline task that does nothing.
   -->
-  <Target Name="VisualStudioForApplicationsBuild" Condition="'$(CI)' == 'true'" />
-  <Target Name="RemoveOfficeAddInSecurity" Condition="'$(CI)' == 'true'" />
-  <Target Name="SetInclusionListEntry" Condition="'$(CI)' == 'true'" />
-  <Target Name="RegisterOfficeAddin" Condition="'$(CI)' == 'true'" />
-  <Target Name="UnregisterOfficeAddin" Condition="'$(CI)' == 'true'" />
+  <UsingTask TaskName="SetInclusionListEntry" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" Condition="'$(CI)' == 'true'">
+    <ParameterGroup>
+      <DeploymentManifestFullPath ParameterType="System.String" Required="false" />
+      <CertificateThumbprint ParameterType="System.String" Required="false" />
+      <Unregister ParameterType="System.Boolean" Required="false" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+          Log.LogMessage(MessageImportance.High, "Bypassed SetInclusionListEntry on CI.");
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
 
 </Project>
