@@ -312,7 +312,6 @@
     <InitializeDefaultProperties Condition="'$(OfficeApplicationDescription)' == ''" TargetName="$(TargetName)" OfficeApplication="$(OfficeApplication)" ProjectTypeName="$(VSTO_ProjectType)">
       <Output TaskParameter="OfficeApplicationDescription" PropertyName="OfficeApplicationDescription" />
     </InitializeDefaultProperties>
-    <VerifyClickOnceSigningSettings SignManifests="$(SignManifests)" />
     <ManageCertificateStore CertificateThumbprint="$(CertificateThumbprint)" KeyFiles="@(None)" />
     <RegisterFormRegions Condition="'$(VSTO_ProjectType)' == 'Application' And '$(OfficeApplication)' == 'Outlook'" AddInName="$(TargetName)" AssemblyName="$(OutDir)$(TargetFileName)" OfficeApplication="$(OfficeApplication)" Unregister="false">
       <Output TaskParameter="FormRegionNamesAndMessageClasses" ItemName="FormRegionNamesAndMessageClassesCollection" />
