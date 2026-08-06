@@ -1,4 +1,4 @@
-# 🎨 AdrkhaTypograph | أدرخا تايبوجراف
+# AdrkhaTypograph | ادركهاا تايبوجراف
 
 <p align="center">
   <img src="https://img.shields.io/github/v/release/adrkha/AdrkhaTypograph?style=for-the-badge&color=0078D4&label=%D8%A3%D8%AD%D8%AF%D8%AB%20%D8%A5%D8%B5%D8%AF%D8%A7%D8%B1" alt="Release">
