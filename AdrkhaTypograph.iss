@@ -48,8 +48,8 @@ Name: "arabic"; MessagesFile: "compiler:Default.isl"
 [Files]
 ; ملفات الإضافة الرئيسية
 Source: "bin\Release\AdrkhaTypograph.dll";              DestDir: "{app}"; Flags: ignoreversion
-Source: "PublishFiles\AdrkhaTypograph.dll.manifest";     DestDir: "{app}"; Flags: ignoreversion
-Source: "PublishFiles\AdrkhaTypograph.vsto";             DestDir: "{app}"; Flags: ignoreversion
+Source: "Deployment\AdrkhaTypograph.dll.manifest";      DestDir: "{app}"; Flags: ignoreversion
+Source: "Deployment\AdrkhaTypograph.vsto";              DestDir: "{app}"; Flags: ignoreversion
 
 ; مكتبات HarfBuzz و SkiaSharp
 Source: "bin\Release\HarfBuzzSharp.dll";              DestDir: "{app}"; Flags: ignoreversion
