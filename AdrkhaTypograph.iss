@@ -90,7 +90,7 @@ var
 begin
   AppDir := ExpandConstant('{app}');
   StringChangeEx(AppDir, '\', '/', True);
-  Result := 'file:///' + AppDir + '/AdrkhaTypograph.vsto|vstolocal';
+  Result := 'file:///' + AppDir + '/AdrkhaTypograph.dll.manifest|vstolocal';
 end;
 
 // تحقق من وجود VSTO Runtime في جميع مساراته المحتملة
