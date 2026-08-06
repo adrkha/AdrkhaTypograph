@@ -1,8 +1,8 @@
-# AdrkhaTypograph | ادركهاا تايبوجراف
+# AdrkhaTypograph | ادركها تايبوجراف
 
 <p align="center">
-  <img src="https://img.shields.io/github/v/release/adrkha/AdrkhaTypograph?style=for-the-badge&color=0078D4&label=%D8%A3%D8%AD%D8%AF%D8%AB%20%D8%A5%D8%B5%D8%AF%D8%A7%D8%B1" alt="Release">
-  <img src="https://img.shields.io/github/license/adrkha/AdrkhaTypograph?style=for-the-badge&color=28A745&label=%D8%A7%D9%84%D8%AA%D8%B1%D8%AE%D9%8A%D8%B5" alt="License">
+  <img src="https://img.shields.io/github/v/release/adrkha/AdrkhaTypograph?style=for-the-badge&color=0078D4&label=Release" alt="Release">
+  <img src="https://img.shields.io/github/license/adrkha/AdrkhaTypograph?style=for-the-badge&color=28A745&label=License" alt="License">
   <img src="https://img.shields.io/badge/PowerPoint-2016%20--%20365-D83B01?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white" alt="PowerPoint">
   <img src="https://img.shields.io/badge/.NET-Framework%204.7.2-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET Framework">
 </p>
