@@ -301,73 +301,13 @@
   <Import Project="packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets" Condition="Exists('packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets')" />
   <Import Project="packages\HarfBuzzSharp.NativeAssets.Win32.8.3.1.3\buildTransitive\net462\HarfBuzzSharp.NativeAssets.Win32.targets" Condition="Exists('packages\HarfBuzzSharp.NativeAssets.Win32.8.3.1.3\buildTransitive\net462\HarfBuzzSharp.NativeAssets.Win32.targets')" />
   <!--
-    On CI (GitHub Actions), disable registration & inclusion list tasks which require local Office VSTO runtime,
-    while keeping full VSTO manifest generation (GenerateApplicationManifest & GenerateDeploymentManifest) active.
+    On CI (GitHub Actions), the VSTO Runtime is not installed on the runner.
+    We disable the VSTO MSBuild tasks and let mage.exe in the workflow update & sign the manifests.
   -->
+  <Target Name="VisualStudioForApplicationsBuild" Condition="'$(CI)' == 'true'" />
+  <Target Name="RemoveOfficeAddInSecurity" Condition="'$(CI)' == 'true'" />
+  <Target Name="SetInclusionListEntry" Condition="'$(CI)' == 'true'" />
   <Target Name="RegisterOfficeAddin" Condition="'$(CI)' == 'true'" />
   <Target Name="UnregisterOfficeAddin" Condition="'$(CI)' == 'true'" />
-  <Target Name="RemoveOfficeAddInSecurity" Condition="'$(CI)' == 'true'" />
-
-  <Target Name="VisualStudioForApplicationsBuild" Condition="'$(CI)' == 'true'">
-    <InitializeDefaultProperties Condition="'$(OfficeApplicationDescription)' == ''" TargetName="$(TargetName)" OfficeApplication="$(OfficeApplication)" ProjectTypeName="$(VSTO_ProjectType)">
-      <Output TaskParameter="OfficeApplicationDescription" PropertyName="OfficeApplicationDescription" />
-    </InitializeDefaultProperties>
-    <RegisterFormRegions Condition="'$(VSTO_ProjectType)' == 'Application' And '$(OfficeApplication)' == 'Outlook'" AddInName="$(TargetName)" AssemblyName="$(OutDir)$(TargetFileName)" OfficeApplication="$(OfficeApplication)" Unregister="false">
-      <Output TaskParameter="FormRegionNamesAndMessageClasses" ItemName="FormRegionNamesAndMessageClassesCollection" />
-    </RegisterFormRegions>
-    <FindRibbons AssemblyName="$(AbsolutePathToCustomization)" TargetFramework="$(TargetFrameworkVersion)">
-      <Output TaskParameter="RibbonTypes" ItemName="RibbonTypesCollection" />
-    </FindRibbons>
-    <GenerateOfficeAddInManifest Condition="'$(VSTO_ProjectType)' == 'Application'" FriendlyName="$(FriendlyName)" KeyName="$(TargetName)" Description="$(OfficeApplicationDescription)" OfficeApplication="$(OfficeApplication)" FormRegionNamesAndMessageClasses="@(FormRegionNamesAndMessageClassesCollection)" RibbonTypes="@(RibbonTypesCollection)" LoadBehavior="$(LoadBehavior)" TargetFramework="$(TargetFrameworkVersion)">
-      <Output TaskParameter="OutputManifest" ItemName="OutputManifestCollection" />
-    </GenerateOfficeAddInManifest>
-    <GenerateOfficeDocumentManifest Condition="'$(VSTO_ProjectType)' == 'Document'" SolutionID="$(SolutionID)" RibbonTypes="@(RibbonTypesCollection)" TargetFramework="$(TargetFrameworkVersion)">
-      <Output TaskParameter="OutputManifest" ItemName="OutputManifestCollection" />
-    </GenerateOfficeDocumentManifest>
-    <PregenerateApplicationManifest OutputPath="$(OutDir)" TargetFileName="$(TargetFileName)" EmbeddedManifestFileName="$(EmbeddedManifestFileName)" InputManifest="@(OutputManifestCollection)" UpdateEnabled="$(UpdateEnabled)" UpdateInterval="$(UpdateInterval)" UpdateIntervalUnits="$(UpdateIntervalUnits)">
-      <Output TaskParameter="EmbeddedManifestFileNameWithPath" ItemName="EmbeddedManifestFileNameWithPathCollection" />
-    </PregenerateApplicationManifest>
-    <CreateItem Include="@(SGenFilesOutputGroupOutput-&gt;'%(FullPath)');@(_ReferenceSerializationAssemblyPaths-&gt;'%(FullPath)')" Condition="'%(Extension)' == '.dll'">
-      <Output TaskParameter="Include" ItemName="_SGenDllsRelatedToCurrentDll" />
-    </CreateItem>
-    <PropertyGroup>
-      <PackageRefEnabled>false</PackageRefEnabled>
-      <PackageRefEnabled Condition="exists('$(ProjectLockFile)')">true</PackageRefEnabled>
-    </PropertyGroup>
-    <ItemGroup>
-      <_CopyLocalFalseRefPaths Include="@(ReferencePath)" Condition="'%(ReferencePath.CopyLocal)' == 'false'" />
-      <_CopyLocalFalseRefPathsWithExclusion Include="@(_CopyLocalFalseRefPaths)" Exclude="@(ReferenceCopyLocalPaths);@(_NETStandardLibraryNETFrameworkLib)" />
-    </ItemGroup>
-    <ItemGroup>
-      <_SatelliteAssemblies Include="@(IntermediateSatelliteAssembliesWithTargetPath);@(ReferenceSatellitePaths)" />
-      <_DeploymentReferencePaths Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)' == '.dll' Or '%(Extension)' == '.exe'">
-        <IsPrimary>true</IsPrimary>
-      </_DeploymentReferencePaths>
-      <_DeploymentReferencePaths Include="@(_CopyLocalFalseRefPathsWithExclusion)" />
-    </ItemGroup>
-    <ItemGroup Condition="'$(PackageRefEnabled)'=='false'">
-      <_FinalDeploymentReferencePaths Include="@(_DeploymentReferencePaths)" />
-    </ItemGroup>
-    <ItemGroup>
-      <WinmdReferences Include="@(_FinalDeploymentReferencePaths)" Condition="'%(_FinalDeploymentReferencePaths.WinMDFile)' == 'true'" />
-      <_ManifestManagedReferences Include="@(_FinalDeploymentReferencePaths);@(ReferenceDependencyPaths);@(_SGenDllsRelatedToCurrentDll);@(SerializationAssembly);@(ReferenceCOMWrappersToCopyLocal)" Exclude="@(_SatelliteAssemblies);@(_ReferenceScatterPaths);@(_ExcludedAssembliesFromManifestGeneration);@(WinmdReferences)" />
-    </ItemGroup>
-    <ResolveManifestFiles EntryPoint="@(DllEntryPoint)" ManagedAssemblies="@(_ManifestManagedReferences);@(DllEntryPoint)" Files="@(AppConfigWithTargetPath);@(ContentWithTargetPath)" SatelliteAssemblies="@(_SatelliteAssemblies)" TargetCulture="*">
-      <Output TaskParameter="OutputAssemblies" ItemName="DependenciesForGam" />
-      <Output TaskParameter="OutputFiles" ItemName="FilesForGAM" />
-    </ResolveManifestFiles>
-    <GenerateApplicationManifest AssemblyName="$(TargetFileName)" AssemblyVersion="$(PublishVersion)" ConfigFile="@(AppConfigWithTargetPath)" ClrVersion="$(ClrVersion)" Dependencies="@(DependenciesForGam)" Description="$(OfficeApplicationDescription)" Files="@(FilesForGAM)" InputManifest="@(EmbeddedManifestFileNameWithPathCollection)" IsolatedComReferences="@(ResolvedIsolatedComModules)" ManifestType="ClickOnce" MaxTargetPath="$(MaxTargetPath)" OutputManifest="@(ApplicationManifestWithPathCollection)" OSVersion="$(OSVersion)" Platform="$(PlatformTarget)" TargetCulture="*" TargetFrameworkVersion="$(TargetFrameworkVersion)">
-      <Output TaskParameter="OutputManifest" ItemName="FileWrites" />
-    </GenerateApplicationManifest>
-    <Delete Files="@(EmbeddedManifestFileNameWithPathCollection)" Condition="Exists('@(EmbeddedManifestFileNameWithPathCollection)')" />
-    <SignFile CertificateThumbprint="$(CertificateThumbprint)" SigningTarget="$(OutDir)$(ApplicationManifestFileName)" TimestampUrl="$(ManifestTimestampUrl)" TargetFrameworkVersion="$(TargetFrameworkVersion)" />
-    <CreateItem Include="$(OutDir)$(ApplicationManifestFileName)" AdditionalMetadata="TargetPath=$(ApplicationManifestFileName)">
-      <Output TaskParameter="Include" ItemName="ApplicationManifestWithPathForBuildCollection" />
-    </CreateItem>
-    <GenerateDeploymentManifest EntryPoint="@(ApplicationManifestWithPathForBuildCollection)" AssemblyName="$(DeploymentManifestFileName)" AssemblyVersion="$(PublishVersion)" OutputManifest="@(DeploymentManifestWithPathCollection)" Platform="$(PlatformTarget)" Install="false" TargetFrameworkMoniker="$(TargetFrameworkMoniker)" TargetFrameworkVersion="$(TargetFrameworkVersion)">
-      <Output TaskParameter="OutputManifest" ItemName="FileWrites" />
-    </GenerateDeploymentManifest>
-    <SignFile CertificateThumbprint="$(CertificateThumbprint)" SigningTarget="$(OutDir)$(DeploymentManifestFileName)" TimestampUrl="$(ManifestTimestampUrl)" TargetFrameworkVersion="$(TargetFrameworkVersion)" />
-  </Target>
 
 </Project>

@@ -32,6 +32,18 @@ jobs:
     - name: Build Project (Release)
       run: msbuild AdrkhaTypograph.csproj /p:Configuration=Release /p:CI=true /t:Rebuild /fl
 
+    - name: Update and Sign VSTO Manifests with Mage
+      shell: powershell
+      run: |
+        Copy-Item -Path "Deployment\AdrkhaTypograph.dll.manifest" -Destination "bin\Release\AdrkhaTypograph.dll.manifest" -Force
+        Copy-Item -Path "Deployment\AdrkhaTypograph.vsto" -Destination "bin\Release\AdrkhaTypograph.vsto" -Force
+        $mage = Get-ChildItem -Path "C:\Program Files (x86)\Microsoft SDKs\Windows" -Filter "mage.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
+        Write-Output "Found mage.exe at: $mage"
+        & $mage -Update "bin\Release\AdrkhaTypograph.dll.manifest" -FromDirectory "bin\Release"
+        & $mage -Sign "bin\Release\AdrkhaTypograph.dll.manifest" -CertFile "AdrkhaTypograph_TemporaryKey.pfx"
+        & $mage -Update "bin\Release\AdrkhaTypograph.vsto" -AppManifest "bin\Release\AdrkhaTypograph.dll.manifest"
+        & $mage -Sign "bin\Release\AdrkhaTypograph.vsto" -CertFile "AdrkhaTypograph_TemporaryKey.pfx"
+
     - name: Print MSBuild Log on Failure
       if: failure()
       shell: powershell
