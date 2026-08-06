@@ -48,8 +48,8 @@ Name: "arabic"; MessagesFile: "compiler:Default.isl"
 [Files]
 ; ملفات الإضافة الرئيسية
 Source: "bin\Release\AdrkhaTypograph.dll";              DestDir: "{app}"; Flags: ignoreversion
-Source: "Deployment\AdrkhaTypograph.dll.manifest";      DestDir: "{app}"; Flags: ignoreversion
-Source: "Deployment\AdrkhaTypograph.vsto";              DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\Release\AdrkhaTypograph.dll.manifest";     DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\Release\AdrkhaTypograph.vsto";             DestDir: "{app}"; Flags: ignoreversion
 
 ; مكتبات HarfBuzz و SkiaSharp
 Source: "bin\Release\HarfBuzzSharp.dll";              DestDir: "{app}"; Flags: ignoreversion
@@ -90,7 +90,7 @@ var
 begin
   AppDir := ExpandConstant('{app}');
   StringChangeEx(AppDir, '\', '/', True);
-  Result := 'file:///' + AppDir + '/AdrkhaTypograph.dll.manifest|vstolocal';
+  Result := 'file:///' + AppDir + '/AdrkhaTypograph.vsto|vstolocal';
 end;
 
 // تحقق من وجود VSTO Runtime في جميع مساراته المحتملة
