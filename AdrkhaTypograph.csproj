@@ -213,6 +213,7 @@
     <Compile Include="TypoEngine.cs" />
     <Compile Include="OpenTypeParser.cs" />
     <Compile Include="UpdateChecker.cs" />
+    <Compile Include="TypoRibbon.cs" />
     <Page Include="TypoControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
