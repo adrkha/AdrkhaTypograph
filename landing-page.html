@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ادركها تايبوجراف - إضافة البوربوينت للخطوط العربية</title>
+    <!-- Google Fonts: Tajawal & Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body style="margin: 0; padding: 0; background-color: #0b0f19; font-family: 'Tajawal', 'Cairo', sans-serif;">
+
+<!-- ============================================================ -->
+<!--  ADRKHA LANDING PAGE ROOT - COMPLETE CSS & JS ISOLATION      -->
+<!-- ============================================================ -->
+<div id="adrkha-landing-root">
+    
+    <style>
+        /* RESET & SCOPED VARIABLES */
+        #adrkha-landing-root {
+            --bg-dark: #0b0f19;
+            --bg-card: rgba(18, 26, 43, 0.75);
+            --bg-card-hover: rgba(26, 38, 64, 0.85);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --border-glow: rgba(0, 120, 212, 0.4);
+            
+            --primary: #0078d4;
+            --primary-hover: #106ebe;
+            --primary-glow: rgba(0, 120, 212, 0.35);
+            --accent-cyan: #00d2ff;
+            --accent-purple: #7928ca;
+            --accent-green: #107c41;
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            
+            --font-family: 'Tajawal', 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            width: 100%;
+            overflow-x: hidden;
+            direction: rtl;
+            text-align: right;
+        }
+
+        #adrkha-landing-root * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* CONTAINER */
+        #adrkha-landing-root .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* GLASS CARD UTILITY */
+        #adrkha-landing-root .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #adrkha-landing-root .glass-card:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 25px 60px rgba(0, 120, 212, 0.15);
+        }
+
+        /* GRADIENT TEXT */
+        #adrkha-landing-root .gradient-text {
+            background: linear-gradient(135deg, #00d2ff 0%, #0078d4 50%, #9d4edd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #adrkha-landing-root .gradient-badge {
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.15), rgba(0, 120, 212, 0.25));
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            color: #00d2ff;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* BUTTONS */
+        #adrkha-landing-root .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 36px;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        #adrkha-landing-root .btn-primary {
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+            color: #ffffff;
+            box-shadow: 0 10px 30px var(--primary-glow);
+        }
+
+        #adrkha-landing-root .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 120, 212, 0.5);
+            background: linear-gradient(135deg, #106ebe 0%, #004578 100%);
+        }
+
+        #adrkha-landing-root .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        #adrkha-landing-root .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        /* HERO SECTION */
+        #adrkha-landing-root .hero {
+            padding: 90px 0 60px;
+            position: relative;
+            text-align: center;
+        }
+
+        #adrkha-landing-root .hero-glow {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 120, 212, 0.25) 0%, rgba(121, 40, 202, 0.15) 50%, rgba(0,0,0,0) 80%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #adrkha-landing-root .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        #adrkha-landing-root .hero-title {
+            font-size: 54px;
+            font-weight: 900;
+            line-height: 1.25;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        #adrkha-landing-root .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        #adrkha-landing-root .hero-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        /* LIVE SIMULATOR DEMO CARD */
+        #adrkha-landing-root .simulator-card {
+            margin-top: 40px;
+            padding: 32px;
+            text-align: right;
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            background: linear-gradient(180deg, rgba(18, 26, 43, 0.9) 0%, rgba(11, 15, 25, 0.95) 100%);
+        }
+
+        #adrkha-landing-root .simulator-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        #adrkha-landing-root .simulator-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        #adrkha-landing-root .simulator-controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        #adrkha-landing-root .sim-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-family: var(--font-family);
+        }
+
+        #adrkha-landing-root .sim-toggle-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        #adrkha-landing-root .sim-preview-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        #adrkha-landing-root .sim-text {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+            transition: all 0.4s ease;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+        }
+
+        #adrkha-landing-root .sim-text.shape-mode {
+            color: transparent;
+            -webkit-text-stroke: 1.5px #00d2ff;
+            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.5));
+            letter-spacing: 2px;
+        }
+
+        /* FEATURES SECTION */
+        #adrkha-landing-root .section {
+            padding: 80px 0;
+        }
+
+        #adrkha-landing-root .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        #adrkha-landing-root .section-title {
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        #adrkha-landing-root .section-desc {
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        #adrkha-landing-root .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        #adrkha-landing-root .feature-card {
+            padding: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #adrkha-landing-root .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.2), rgba(0, 210, 255, 0.1));
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--accent-cyan);
+        }
+
+        #adrkha-landing-root .feature-card-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        #adrkha-landing-root .feature-card-desc {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* HOW IT WORKS / STEPS */
+        #adrkha-landing-root .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        #adrkha-landing-root .step-card {
+            padding: 30px;
+            position: relative;
+            background: rgba(18, 26, 43, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+        }
+
+        #adrkha-landing-root .step-number {
+            font-size: 42px;
+            font-weight: 900;
+            color: rgba(0, 210, 255, 0.25);
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        #adrkha-landing-root .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        #adrkha-landing-root .step-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* COMPATIBILITY & SYSTEM REQS */
+        #adrkha-landing-root .reqs-box {
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(18, 26, 43, 0.8) 0%, rgba(10, 15, 28, 0.9) 100%);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        #adrkha-landing-root .reqs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        #adrkha-landing-root .req-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #adrkha-landing-root .req-icon {
+            color: var(--accent-cyan);
+            flex-shrink: 0;
+        }
+
+        #adrkha-landing-root .req-text-title {
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+
+        #adrkha-landing-root .req-text-val {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* FAQ ACCORDION */
+        #adrkha-landing-root .faq-list {
+            max-width: 850px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        #adrkha-landing-root .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        #adrkha-landing-root .faq-question {
+            padding: 20px 24px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-main);
+        }
+
+        #adrkha-landing-root .faq-answer {
+            padding: 0 24px 20px;
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            display: none;
+        }
+
+        #adrkha-landing-root .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        #adrkha-landing-root .faq-item.active {
+            border-color: var(--border-glow);
+            background: var(--bg-card-hover);
+        }
+
+        #adrkha-landing-root .faq-icon-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        #adrkha-landing-root .faq-item.active .faq-icon-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* CTA BANNER */
+        #adrkha-landing-root .cta-banner {
+            padding: 60px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.25) 0%, rgba(121, 40, 202, 0.25) 100%);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            #adrkha-landing-root .hero-title {
+                font-size: 36px;
+            }
+            #adrkha-landing-root .hero-subtitle {
+                font-size: 16px;
+            }
+            #adrkha-landing-root .btn {
+                width: 100%;
+            }
+            #adrkha-landing-root .sim-preview-box {
+                min-height: 140px;
+                padding: 16px;
+            }
+            #adrkha-landing-root .sim-text {
+                font-size: 32px;
+            }
+        }
+    </style>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="gradient-badge">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    الإصدار الرسمي الحصري v1.1.1
+                </div>
+                <h1 class="hero-title">
+                    أطلق العنان للتايبوجرافيا العربية في <span class="gradient-text">Microsoft PowerPoint</span>
+                </h1>
+                <p class="hero-subtitle">
+                    إضافة <b>ادركها تايبوجراف</b> تمنحك القدرة الكاملة على تحويل أي نص عربي إلى <b>أشكال متجهة (Vector Shapes)</b> عالية الدقة، مع التحكم المباشر في ميزات OpenType، والتراكيب الخطية، والبدائل الأسلوبية، والتشكيل بضغطة زر واحدة.
+                </p>
+                <div class="hero-cta">
+                    <a href="https://github.com/adrkha/AdrkhaTypograph/releases/download/v1.1.1/AdrkhaTypograph_v1.0.0_Setup.exe" class="btn btn-primary">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        تحميل الإضافة مجاناً (v1.1.1)
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                        استكشف المميزات
+                    </a>
+                </div>
+            </div>
+
+            <!-- INTERACTIVE TYPOGRAPHY SIMULATOR -->
+            <div class="glass-card simulator-card">
+                <div class="simulator-header">
+                    <div class="simulator-title">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+                        معاينة تفاعلية حية لتأثير الأداة
+                    </div>
+                    <div class="simulator-controls">
+                        <button class="sim-toggle-btn active" id="btn-mode-text">نص عادي</button>
+                        <button class="sim-toggle-btn" id="btn-mode-shape">مسارات متجهة (Vector Outline)</button>
+                        <button class="sim-toggle-btn" id="btn-mode-liga">تفعيل التراكيب (Liga)</button>
+                    </div>
+                </div>
+                <div class="sim-preview-box">
+                    <div class="sim-text" id="sim-text-display">ادركها تايبوجراف العربي</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">لماذا تُعتبر إضافة <span class="gradient-text">ادركها تايبوجراف</span> خيارك الأول؟</h2>
+                <p class="section-desc">صُممت الأداة خصيصاً للمصممين وصناع المحتوى العرب للتغلب على قيود النصوص التقليدية في البوربوينت.</p>
+            </div>
+
+            <div class="features-grid">
+                <!-- FEATURE 1 -->
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                    </div>
+                    <h3 class="feature-card-title">تحويل النص إلى أشكال متجهة</h3>
+                    <p class="feature-card-desc">تحويل الكلمات والجمل العربية إلى مسارات أشكال (Vector Paths / Shapes) دون فقدان دقة الحروف، مما يتيح لك تطبيق التدرجات وتفكيك الحروف والتحكم الكامل في النقاط.</p>
+                </div>
+
+                <!-- FEATURE 2 -->
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+                    </div>
+                    <h3 class="feature-card-title">دعم كامل لسمات OpenType</h3>
+                    <p class="feature-card-desc">تحكم كامل في البدائل الأسلوبية (Stylistic Alternates)، والمد والكشيدة، والتراكيب القياسية والجمالية (Ligatures) المضمنة في الخطوط العربية الاحترافية.</p>
+                </div>
+
+                <!-- FEATURE 3 -->
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h3 class="feature-card-title">محرك تشكيل فائق السرعة</h3>
+                    <p class="feature-card-desc">تعتمد الأداة على محرك <b>HarfBuzzSharp</b> العالمي مع مكتبة <b>SkiaSharp</b> لرسم الحركات والتشكيل العربي بدقة ميكرونية متناهية.</p>
+                </div>
+
+                <!-- FEATURE 4 -->
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+                    </div>
+                    <h3 class="feature-card-title">لوحة جانبية + شريط أدوات علوي</h3>
+                    <p class="feature-card-desc">تأتي الأداة مع لوحة جانبية (Task Pane) سهلة الاستخدام، بالإضافة إلى تبويب علوي مدمج في شريط PowerPoint (Ribbon Tab) لإظهار وإخفاء الأداة بزر واحد.</p>
+                </div>
+
+                <!-- FEATURE 5 -->
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6"/><path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                    </div>
+                    <h3 class="feature-card-title">تحديثات سحابية آليّة</h3>
+                    <p class="feature-card-desc">تقوم الإضافة بفحص تلقائي من GitHub للتأكد من حصولك دائماً على أحدث التحسينات والميزات بدون تعقيد.</p>
+                </div>
+
+                <!-- FEATURE 6 -->
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3 class="feature-card-title">تثبيت آمن ومجاني 100%</h3>
+                    <p class="feature-card-desc">مشروع مفتوح المصدر مرخص برخصة MIT، خالٍ تماماً من الإعلانات أو البرمجيات الضارة، ومتاح مجاناً لجميع المصممين.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO INSTALL / STEPS -->
+    <section class="section" style="background: rgba(0,0,0,0.2);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ثلاث خطوات بسيطة لبدء الاستخدام</h2>
+                <p class="section-desc">تثبيت الإضافة يستغرق أقل من دقيقة واحدة فقط.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <span class="step-number">01</span>
+                    <h3 class="step-title">تحميل ملف التثبيت</h3>
+                    <p class="step-desc">قم بتحميل ملف التثبيت المباشر <code>AdrkhaTypograph_v1.0.0_Setup.exe</code> بضغطة زر واحدة.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">02</span>
+                    <h3 class="step-title">تشغيل المثبت السريع</h3>
+                    <p class="step-desc">افتح الملف واتبع الخطوات البسيطة للتثبيت الذاتي على نظام Windows.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">03</span>
+                    <h3 class="step-title">الافتح والتصميم في PowerPoint</h3>
+                    <p class="step-desc">افتح برنامج Microsoft PowerPoint وستجد تبويب <b>ادركها تايبوجراف</b> جاهزاً للاستخدام فوراً!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SYSTEM REQUIREMENTS -->
+    <section class="section">
+        <div class="container">
+            <div class="reqs-box">
+                <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">💻 متطلبات النظام والبيئة التشغيلية</h3>
+                <p style="color: var(--text-muted);">تتوافق الإضافة مع معظم أجهزة نظام Windows وبرامج Microsoft Office الحديثة:</p>
+                
+                <div class="reqs-grid">
+                    <div class="req-item">
+                        <svg class="req-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        <div>
+                            <div class="req-text-title">نظام التشغيل</div>
+                            <div class="req-text-val">Windows 10 / 11 (64/32-bit)</div>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <svg class="req-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <div>
+                            <div class="req-text-title">برنامج PowerPoint</div>
+                            <div class="req-text-val">2016 / 2019 / 2021 / Office 365</div>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <svg class="req-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+                        <div>
+                            <div class="req-text-title">الإطار البرمجي</div>
+                            <div class="req-text-val">.NET Framework 4.7.2+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section" style="background: rgba(0,0,0,0.15);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">الأسئلة الشائعة (FAQ)</h2>
+                <p class="section-desc">إجابات على أبرز الاستفسارات المتعلقة بالإضافة.</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>هل الإضافة مجانية بالكامل؟</span>
+                        <svg class="faq-icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        نعم، الإضافة مفتوحة المصدر (Open Source) ومتاحة مجاناً 100% لجميع المصممين دون أي رسوم أو اشتراكات.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>كيف يمكنني إظهار اللوحة إذا قمت بإغلاقها؟</span>
+                        <svg class="faq-icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        ببساطة اذهب إلى تبويب <b>ادركها تايبوجراف</b> في شريط أدوات PowerPoint العلوي (Ribbon)، واضغط على زر <b>إظهار / إخفاء اللوحة</b> لتعود اللوحة فوراً.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>هل تحتاج الإضافة للاتصال بالإنترنت أثناء الاستخدام؟</span>
+                        <svg class="faq-icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        لا، الإضافة تعمل أوفلاين بالكامل محلياً على جهازك، وتستخدم الإنترنت فقط اختيارياً للتحقق من وجود تحديثات جديدة.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA BANNER -->
+    <section class="section">
+        <div class="container">
+            <div class="cta-banner">
+                <h2 style="font-size: 36px; font-weight: 900; margin-bottom: 16px;">جاهز للارتقاء بتصاميمك التايبوجرافية؟</h2>
+                <p style="font-size: 18px; color: var(--text-muted); max-width: 600px; margin: 0 auto 30px;">
+                    حمل إضافة <b>ادركها تايبوجراف</b> الآن واكتشف بعداً جديداً للخط العربي داخل Microsoft PowerPoint.
+                </p>
+                <a href="https://github.com/adrkha/AdrkhaTypograph/releases/download/v1.1.1/AdrkhaTypograph_v1.0.0_Setup.exe" class="btn btn-primary" style="font-size: 20px; padding: 18px 48px;">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    تحميل أحدث إصدار مجاناً (v1.1.1)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="padding: 40px 0; border-top: 1px solid var(--border-color); text-align: center; color: var(--text-dim); font-size: 14px;">
+        <div class="container">
+            <p>جميع الحقوق محفوظة © 2026 <b>ادركها تايبوجراف</b> | تم التطوير بحب للخط العربي ️❤️</p>
+            <p style="margin-top: 8px;">
+                <a href="https://github.com/adrkha/AdrkhaTypograph" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-weight: 600;">المستودع الرسمي على GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SIMULATOR SCRIPT (ISOLATED IIFE) -->
+    <script>
+        (function() {
+            var root = document.getElementById('adrkha-landing-root');
+            if (!root) return;
+
+            var simText = root.querySelector('#sim-text-display');
+            var btnText = root.querySelector('#btn-mode-text');
+            var btnShape = root.querySelector('#btn-mode-shape');
+            var btnLiga = root.querySelector('#btn-mode-liga');
+
+            if (simText && btnText && btnShape && btnLiga) {
+                btnText.addEventListener('click', function() {
+                    simText.classList.remove('shape-mode');
+                    btnText.classList.add('active');
+                    btnShape.classList.remove('active');
+                });
+
+                btnShape.addEventListener('click', function() {
+                    simText.classList.add('shape-mode');
+                    btnShape.classList.add('active');
+                    btnText.classList.remove('active');
+                });
+
+                btnLiga.addEventListener('click', function() {
+                    btnLiga.classList.toggle('active');
+                    if (btnLiga.classList.contains('active')) {
+                        simText.textContent = "ادركها تايبوجراف ﷲ ﷴ ﷻ";
+                    } else {
+                        simText.textContent = "ادركها تايبوجراف العربي";
+                    }
+                });
+            }
+
+            // FAQ ACCORDION
+            var faqQuestions = root.querySelectorAll('.faq-question');
+            faqQuestions.forEach(function(q) {
+                q.addEventListener('click', function() {
+                    var item = q.parentElement;
+                    item.classList.toggle('active');
+                });
+            });
+        })();
+    </script>
+</div>
+</body>
+</html>
