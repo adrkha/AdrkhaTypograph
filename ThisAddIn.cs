@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +23,19 @@ namespace AdrkhaTypograph // <--- غير هذا الاسم إذا كان اسم 
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+        }
+
+        protected override Office.IRibbonExtensibility CreateRibbonExtensibilityObject()
+        {
+            return new TypoRibbon();
+        }
+
+        public void ToggleTaskPane()
+        {
+            if (myCustomTaskPane != null)
+            {
+                myCustomTaskPane.Visible = !myCustomTaskPane.Visible;
+            }
         }
 
         #region VSTO generated code
