@@ -16,7 +16,7 @@ namespace AdrkhaTypograph // <--- غير هذا الاسم إذا كان اسم 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             myTaskPaneControl = new TypoTaskPane();
-            myCustomTaskPane = this.CustomTaskPanes.Add(myTaskPaneControl, "أدركها تايبوجراف");
+            myCustomTaskPane = this.CustomTaskPanes.Add(myTaskPaneControl, "ادركها تايبوجراف");
             myCustomTaskPane.Width = 300;
             myCustomTaskPane.Visible = true;
         }

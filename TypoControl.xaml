@@ -333,7 +333,7 @@
                 
                 <!-- Title Text -->
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock Text="أدركها تايبوجراف" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource ThemeForegroundBrush}"/>
+                    <TextBlock Text="ادركها تايبوجراف" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource ThemeForegroundBrush}"/>
                     <TextBlock Text="تحويل خصائص الخطوط إلى تايبوجراف" FontSize="12" Foreground="{DynamicResource ThemeTextMutedBrush}" FontWeight="Medium"/>
                 </StackPanel>
             </Grid>

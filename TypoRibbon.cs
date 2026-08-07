@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using Office = Microsoft.Office.Core;
 
@@ -11,12 +12,15 @@ namespace AdrkhaTypograph
 
         public string GetCustomUI(string ribbonID)
         {
-            return @"<?xml version=""1.0"" encoding=""UTF-8""?>
+            var v = Assembly.GetExecutingAssembly().GetName().Version;
+            string versionStr = $"v{v.Major}.{v.Minor}.{v.Build}";
+
+            return $@"<?xml version=""1.0"" encoding=""UTF-8""?>
 <customUI xmlns=""http://schemas.microsoft.com/office/2009/07/customui"" onLoad=""Ribbon_Load"">
   <ribbon>
     <tabs>
-      <tab id=""TabAdrkhaTypo"" label=""أدركها تايبوجراف"">
-        <group id=""GroupTypo"" label=""تحكم اللوحة"">
+      <tab id=""TabAdrkhaTypo"" label=""ادركها تايبوجراف"">
+        <group id=""GroupTypo"" label=""تحكم اللوحة ({versionStr})"">
           <button id=""BtnToggleTaskPane"" 
                   label=""إظهار / إخفاء اللوحة"" 
                   size=""large"" 
