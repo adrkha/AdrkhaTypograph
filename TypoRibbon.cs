@@ -15,7 +15,7 @@ namespace AdrkhaTypograph
 <customUI xmlns=""http://schemas.microsoft.com/office/2009/07/customui"" onLoad=""Ribbon_Load"">
   <ribbon>
     <tabs>
-      <tab id=""TabAdrkhaTypo"" label=""أدرخا تايبوجراف"">
+      <tab id=""TabAdrkhaTypo"" label=""أدركها تايبوجراف"">
         <group id=""GroupTypo"" label=""تحكم اللوحة"">
           <button id=""BtnToggleTaskPane"" 
                   label=""إظهار / إخفاء اللوحة"" 
